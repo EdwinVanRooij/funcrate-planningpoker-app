@@ -18,4 +18,7 @@
     <string name="fragment_settings_desc">Settings…</string>
     <string name="fragment_blog_title">Blog page!</string>
     <string name="fragment_blog_desc">Description of blog page.</string>
+    <string name="fragment_main_title">Welcome!</string>
+    <string name="button_scan">Scan QR code!</string>
+    <string name="simple_scanner_activity">Simple scanner</string>
 </resources>
