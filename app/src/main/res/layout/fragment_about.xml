@@ -16,9 +16,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/fragment_about" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/fragment_about_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_large"
+                android:text="@string/fragment_about_desc"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

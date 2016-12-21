@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.Unbinder;
 
 
 /**
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
  */
 public class AboutFragment extends Fragment {
 
+    private Unbinder unbinder;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -26,4 +28,9 @@ public class AboutFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }
