@@ -1,20 +1,16 @@
 package com.funcrate.funcrateplanningpoker;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import butterknife.BindView;
-
-import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +33,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        setFragment(MainFragment.class);
     }
 
     @Override
@@ -56,16 +54,35 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navigation_drawer_blog) {
-
-        } else if (id == R.id.navigation_drawer_about) {
-
-        } else if (id == R.id.navigation_drawer_settings) {
-
+        switch (id) {
+            case R.id.navigation_drawer_home:
+                setFragment(MainFragment.class);
+                break;
+            case R.id.navigation_drawer_blog:
+                setFragment(BlogFragment.class);
+                break;
+            case R.id.navigation_drawer_about:
+                setFragment(AboutFragment.class);
+                break;
+            case R.id.navigation_drawer_settings:
+                setFragment(SettingsFragment.class);
+                break;
+            default:
+                System.out.println("Could not determine which drawer item was clicked");
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setFragment(Class fragmentClass) {
+        try {
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
