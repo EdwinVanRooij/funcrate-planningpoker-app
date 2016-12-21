@@ -1,5 +1,7 @@
 package com.funcrate.funcrateplanningpoker;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+import static android.R.attr.data;
 
 public class SimpleScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
@@ -40,20 +44,22 @@ public class SimpleScannerActivity extends AppCompatActivity implements ZXingSca
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(this, "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
-
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
         // * I don't know why this is the case but I don't have the time to figure out.
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mScannerView.resumeCameraPreview(SimpleScannerActivity.this);
-            }
-        }, 4000);
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mScannerView.resumeCameraPreview(SimpleScannerActivity.this);
+//            }
+//        }, 4000);
+
+        Intent data = new Intent();
+        data.setData(Uri.parse(rawResult.getText()));
+        setResult(RESULT_OK, data);
+        finish();
     }
 
     public void setupToolbar() {

@@ -5,38 +5,32 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.BindView;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.google.zxing.Result;
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import java.util.Scanner;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
 
-    private Class<?> mClss;
+    static final int SCAN_QR_REQUEST = 2;  // The request code
     private static final int ZXING_CAMERA_PERMISSION = 1;
-    private static final String TAG = "MainFragment";
 
     private Unbinder unbinder;
 
     public MainFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,19 +43,27 @@ public class MainFragment extends Fragment {
     }
 
     @OnClick(R.id.btnScan)
-    public void onButtonScanClick(View view) {
-        launchActivity(SimpleScannerActivity.class);
+    public void onButtonScanClick() {
+        startScanActivity();
     }
 
-    public void launchActivity(Class<?> clss) {
+    private void startScanActivity() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            mClss = clss;
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
         } else {
-            Intent intent = new Intent(getActivity(), clss);
-            startActivity(intent);
+            Intent intent = new Intent(getActivity(), SimpleScannerActivity.class);
+            startActivityForResult(intent, SCAN_QR_REQUEST);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SCAN_QR_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                String returnedResult = data.getData().toString();
+                Toast.makeText(getActivity(), returnedResult, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -70,5 +72,4 @@ public class MainFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 }
