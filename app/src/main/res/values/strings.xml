@@ -27,4 +27,8 @@
     <string name="fragment_main_manual_desc">Enter the host-generated URL below. Hit the "join" button to join the game lobby!</string>
     <string name="hint_url">http://funcrate.nl/...</string>
     <string name="button_join">Join!</string>
+    <string name="enter_name_title">Username</string>
+    <string name="enter_name_desc">Please enter your name below. This name will be visible to other users.</string>
+    <string name="hint_username">My Name</string>
+    <string name="button_confirm">Confirm</string>
 </resources>

@@ -11,20 +11,28 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import org.parceler.Parcels;
 
 import static android.app.Activity.RESULT_OK;
+import static com.funcrate.funcrateplanningpoker.Constants.KEY_URL;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
 
+    @BindView(R.id.etManualURL)
+    EditText etManualURL;
+
     static final int SCAN_QR_REQUEST = 2;  // The request code
     private static final int ZXING_CAMERA_PERMISSION = 1;
+    private String lobby_url;
 
     private Unbinder unbinder;
 
@@ -47,6 +55,20 @@ public class MainFragment extends Fragment {
         startScanActivity();
     }
 
+    @OnClick(R.id.btnJoin)
+    public void onButtonJoinClick() {
+        lobby_url = etManualURL.getText().toString();
+        startEnterNameActivity();
+    }
+
+    private void startEnterNameActivity() {
+        Intent intent = new Intent(getActivity(), EnterNameActivity.class);
+
+        intent.putExtra(KEY_URL, Parcels.wrap(lobby_url));
+
+        startActivity(intent);
+    }
+
     private void startScanActivity() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -61,8 +83,8 @@ public class MainFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SCAN_QR_REQUEST) {
             if (resultCode == RESULT_OK) {
-                String returnedResult = data.getData().toString();
-                Toast.makeText(getActivity(), returnedResult, Toast.LENGTH_SHORT).show();
+                lobby_url = data.getData().toString();
+                startEnterNameActivity();
             }
         }
     }

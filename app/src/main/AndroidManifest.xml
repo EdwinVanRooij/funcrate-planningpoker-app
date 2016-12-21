@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SimpleScannerActivity"
             android:label="@string/simple_scanner_activity"
             android:theme="@style/AppOverlayTheme" />
+        <activity android:name=".EnterNameActivity"></activity>
     </application>
 
 </manifest>
