@@ -20,12 +20,12 @@
     <string name="fragment_blog_desc">Description of blog page.</string>
     <string name="fragment_main_title">Welcome!</string>
     <string name="button_scan">Scan QR code!</string>
-    <string name="simple_scanner_activity">Simple scanner</string>
+    <string name="simple_scanner_activity">Scan FunCrate QR code!</string>
     <string name="fragment_main_qr_title">QR scanner</string>
     <string name="fragment_main_qr_desc">Press the button below to scan the host-generated URL. With this URL, you will join the game lobby!</string>
     <string name="fragment_main_manual_title">Manual</string>
     <string name="fragment_main_manual_desc">Enter the host-generated URL below. Hit the "join" button to join the game lobby!</string>
-    <string name="hint_url">http://funcrate.nl/...</string>
+    <string name="hint_url">http://funcrate.nl/…</string>
     <string name="button_join">Join!</string>
     <string name="enter_name_title">Username</string>
     <string name="enter_name_desc">Please enter your name below. This name will be visible to other users.</string>

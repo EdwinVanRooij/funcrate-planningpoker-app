@@ -25,12 +25,14 @@ public class EnterNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_name);
         ButterKnife.bind(this);
 
+        // Get the url from previous activity
         url = Parcels.unwrap(getIntent().getParcelableExtra(KEY_URL));
         Toast.makeText(this, String.format("URL is: %s", url), Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.btnConfirm)
     public void onButtonConfirmClick() {
+        // TODO: 10-1-17 Implement functionality to send back to back-end
         Toast.makeText(this, String.format("Username is: %s", etUsername.getText().toString()), Toast.LENGTH_SHORT).show();
     }
 }

@@ -61,6 +61,9 @@ public class MainFragment extends Fragment {
         startEnterNameActivity();
     }
 
+    /**
+     * Start a new activity to allow the user to enter their name
+     */
     private void startEnterNameActivity() {
         Intent intent = new Intent(getActivity(), EnterNameActivity.class);
 
@@ -69,6 +72,9 @@ public class MainFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * Starts the qr scanner activity
+     */
     private void startScanActivity() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -80,6 +86,13 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /**
+     * Retrieve result from previously started activity
+     *
+     * @param requestCode code of started activity
+     * @param resultCode  result code indicating success status,
+     * @param data        data returned from activity
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SCAN_QR_REQUEST) {
             if (resultCode == RESULT_OK) {

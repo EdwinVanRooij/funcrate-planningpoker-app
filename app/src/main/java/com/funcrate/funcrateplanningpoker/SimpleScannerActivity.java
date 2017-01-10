@@ -44,18 +44,6 @@ public class SimpleScannerActivity extends AppCompatActivity implements ZXingSca
 
     @Override
     public void handleResult(Result rawResult) {
-        // Note:
-        // * Wait 2 seconds to resume the preview.
-        // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
-        // * I don't know why this is the case but I don't have the time to figure out.
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                mScannerView.resumeCameraPreview(SimpleScannerActivity.this);
-//            }
-//        }, 4000);
-
         Intent data = new Intent();
         data.setData(Uri.parse(rawResult.getText()));
         setResult(RESULT_OK, data);
@@ -63,6 +51,7 @@ public class SimpleScannerActivity extends AppCompatActivity implements ZXingSca
     }
 
     public void setupToolbar() {
+        // Setup new toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
