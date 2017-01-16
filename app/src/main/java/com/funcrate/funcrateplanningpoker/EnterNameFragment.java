@@ -64,7 +64,7 @@ public class EnterNameFragment extends Fragment {
             try {
                 Thread.sleep(4000);
 
-                activity.setFragment(CardPickFragment.class, false);
+                activity.setFragment(WaitFragment.class, false);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

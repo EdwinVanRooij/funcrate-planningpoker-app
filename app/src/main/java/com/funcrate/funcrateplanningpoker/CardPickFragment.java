@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -14,6 +16,9 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class CardPickFragment extends Fragment {
+
+    @BindView(R.id.listView)
+    ListView listView;
 
     private Unbinder unbinder;
 
