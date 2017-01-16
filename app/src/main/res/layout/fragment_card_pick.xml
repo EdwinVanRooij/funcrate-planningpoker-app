@@ -1,9 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.funcrate.funcrateplanningpoker.ReadyFragment">
+    android:orientation="vertical"
+    tools:context="com.funcrate.funcrateplanningpoker.CardPickFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -16,45 +17,39 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_large"
-                android:text="@string/ready_title"
+                android:text="@string/cardpick_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
-                android:id="@+id/tvDescription"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_large"
-                android:text="@string/ready_description"
+                android:text="@string/cardpick_description"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-            <Button
-                android:id="@+id/btnReady"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_large"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:text="@string/button_ready" />
-
-            <Button
-                android:id="@+id/btnUnready"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_large"
-                android:backgroundTint="@android:color/holo_red_light"
-                android:text="@string/button_unready"
-                android:visibility="gone" />
-
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
-</FrameLayout>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!-- TODO: add horizontal listview/recyclerview for cards to select -->
+
+    <Button
+        android:id="@+id/btnConfirm"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_margin="@dimen/spacing_large"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/button_send" />
+
+</LinearLayout>

@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import java.net.Socket;
+
 import static android.view.View.GONE;
 import static com.funcrate.funcrateplanningpoker.R.id.etUsername;
 
@@ -40,15 +42,17 @@ public class ReadyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ready, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+
         return view;
     }
+
 
     @OnClick(R.id.btnReady)
     public void onButtonReadyClick() {
         btnReady.setVisibility(GONE);
         btnUnready.setVisibility(View.VISIBLE);
 
-        Toast.makeText(getContext(), "Now ready!", Toast.LENGTH_SHORT).show();
+        // TODO: 16-1-17 Send ready signal to backend
     }
 
     @OnClick(R.id.btnUnready)
@@ -56,8 +60,7 @@ public class ReadyFragment extends Fragment {
         btnUnready.setVisibility(GONE);
         btnReady.setVisibility(View.VISIBLE);
 
-        Toast.makeText(getContext(), "Now unready", Toast.LENGTH_SHORT).show();
-
+        // TODO: 16-1-17 Send ready signal to backend
     }
 
     @Override

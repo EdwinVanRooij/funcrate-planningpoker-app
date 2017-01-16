@@ -19,13 +19,16 @@ import org.parceler.Parcels;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static android.R.attr.logo;
+import static android.R.attr.port;
+import static android.R.attr.timePickerStyle;
+import static com.funcrate.funcrateplanningpoker.Config.BACKEND_IP;
+import static com.funcrate.funcrateplanningpoker.Config.BACKEND_PORT;
 import static com.funcrate.funcrateplanningpoker.Constants.KEY_URL;
 
 public class SocketActivity extends AppCompatActivity {
 
     private String url;
-    private String ip = "145.93.56.28";
-    private int port = 8080;
 
     private WebSocketClient mWebSocketClient;
 
@@ -41,6 +44,7 @@ public class SocketActivity extends AppCompatActivity {
 
         setFragment(EnterNameFragment.class, false);
 
+
         connectWebSocket();
     }
 
@@ -55,29 +59,46 @@ public class SocketActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * All of the socket communication is received and finally sent in this method, callbacks are registerd here
+     * This code points to other methods based on the messages received
+     */
     private void connectWebSocket() {
         try {
-            URI uri = new URI(String.format("ws://%s:%s/host", ip, port));
+            URI uri = new URI(String.format("ws://%s:%s/host", BACKEND_IP, BACKEND_PORT));
+            int times = 10;
 
             mWebSocketClient = new WebSocketClient(uri) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
-                    Log.i("Websocket", "Opened");
+                    for (int j = 0; j < times; j++) {
+                        Log.i("Websocket", "Opened");
+                    }
+                    System.out.println("Websocket opened");
                     mWebSocketClient.send(String.format("gameId;\"%s\"", url));
                 }
 
                 @Override
                 public void onMessage(String s) {
+                    for (int j = 0; j < times; j++) {
+                        System.out.println("Received message");
+                    }
                     onMessageReceived(s);
                 }
 
                 @Override
                 public void onClose(int i, String s, boolean b) {
+                    for (int j = 0; j < times; j++) {
+                        System.out.println("Socked closed");
+                    }
                     Log.i("Websocket", "Closed " + s);
                 }
 
                 @Override
                 public void onError(Exception e) {
+                    for (int i = 0; i < times; i++) {
+                        System.out.println("Error received on socket");
+                    }
                     Log.i("Websocket", "Error " + e.getMessage());
                 }
             };
@@ -89,7 +110,27 @@ public class SocketActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when host is done with entering required information (entering user stories)
+     */
+    private void onHostIsDone() {
+        setFragment(CardPickFragment.class, false);
+    }
 
+    /**
+     * Called when all players are ready to start the game
+     */
+    private void onEveryoneReady() {
+        setFragment(WaitFragment.class, false);
+    }
+
+    /**
+     * Call this to change the fragment
+     *
+     * @param fragmentClass
+     * @param addToStack
+     */
+    @SuppressWarnings("JavaDoc")
     public void setFragment(Class fragmentClass, boolean addToStack) {
         try {
             Fragment fragment = (Fragment) fragmentClass.newInstance();

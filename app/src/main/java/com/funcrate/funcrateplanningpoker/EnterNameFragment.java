@@ -58,6 +58,17 @@ public class EnterNameFragment extends Fragment {
         activity.sendMessageThroughSocket(String.format("join;\"%s\"", username));
 
         activity.setFragment(ReadyFragment.class, false);
+
+        // TODO: 16-1-17 this is just for the simulation effect, remove this in production
+        new Thread(() -> {
+            try {
+                Thread.sleep(4000);
+
+                activity.setFragment(CardPickFragment.class, false);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
 }
