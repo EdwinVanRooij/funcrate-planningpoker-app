@@ -24,7 +24,7 @@
             android:name=".SimpleScannerActivity"
             android:label="@string/simple_scanner_activity"
             android:theme="@style/AppOverlayTheme" />
-        <activity android:name=".EnterNameActivity"></activity>
+        <activity android:name=".EnterNameActivity" />
     </application>
 
 </manifest>
