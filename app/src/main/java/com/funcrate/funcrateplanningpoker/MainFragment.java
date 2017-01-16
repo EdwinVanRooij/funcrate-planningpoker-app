@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,11 +51,13 @@ public class MainFragment extends Fragment {
 
     @OnClick(R.id.btnScan)
     public void onButtonScanClick() {
+        System.out.println("Clicked button scan");
         startScanActivity();
     }
 
     @OnClick(R.id.btnJoin)
     public void onButtonJoinClick() {
+        System.out.println("Clicked button join");
         lobby_url = etManualURL.getText().toString();
         startEnterNameActivity();
     }
@@ -65,7 +66,7 @@ public class MainFragment extends Fragment {
      * Start a new activity to allow the user to enter their name
      */
     private void startEnterNameActivity() {
-        Intent intent = new Intent(getActivity(), EnterNameActivity.class);
+        Intent intent = new Intent(getActivity(), SocketActivity.class);
 
         intent.putExtra(KEY_URL, Parcels.wrap(lobby_url));
 

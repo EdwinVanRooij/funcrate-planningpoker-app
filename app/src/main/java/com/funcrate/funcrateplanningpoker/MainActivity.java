@@ -39,19 +39,6 @@ public class MainActivity extends AppCompatActivity
 
 
         setFragment(MainFragment.class);
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
-//
-//        setSupportActionBar(toolbar);
-//
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//        setFragment(MainFragment.class);
     }
 
     @Override
