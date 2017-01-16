@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.funcrate.funcrateplanningpoker.R.id.etUsername;
+import static java.security.AccessController.getContext;
 
 
 /**
@@ -55,6 +56,8 @@ public class EnterNameFragment extends Fragment {
 
         SocketActivity activity = (SocketActivity) getActivity();
         activity.sendMessageThroughSocket(String.format("join;\"%s\"", username));
+
+        activity.setFragment(ReadyFragment.class, false);
     }
 
 }

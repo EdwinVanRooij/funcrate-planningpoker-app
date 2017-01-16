@@ -49,7 +49,10 @@ public class SocketActivity extends AppCompatActivity {
     }
 
     public void sendMessageThroughSocket(String string) {
-        mWebSocketClient.send(string);
+        runOnUiThread(() -> {
+            // TODO: 16-1-17 uncomment
+//            mWebSocketClient.send(string);
+        });
     }
 
     private void connectWebSocket() {
@@ -65,9 +68,7 @@ public class SocketActivity extends AppCompatActivity {
 
                 @Override
                 public void onMessage(String s) {
-                    runOnUiThread(() -> {
-                        onMessageReceived(s);
-                    });
+                    onMessageReceived(s);
                 }
 
                 @Override
