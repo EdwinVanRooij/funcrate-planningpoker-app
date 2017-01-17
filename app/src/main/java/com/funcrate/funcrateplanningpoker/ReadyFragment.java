@@ -7,16 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import java.net.Socket;
-
 import static android.view.View.GONE;
-import static com.funcrate.funcrateplanningpoker.R.id.etUsername;
 
 
 /**
@@ -52,7 +48,9 @@ public class ReadyFragment extends Fragment {
         btnReady.setVisibility(GONE);
         btnUnready.setVisibility(View.VISIBLE);
 
-        // TODO: 16-1-17 Send ready signal to backend
+        SocketActivity socketActivity = (SocketActivity) getActivity();
+
+        socketActivity.sendMessageThroughSocket("ready;true");
     }
 
     @OnClick(R.id.btnUnready)
@@ -60,7 +58,9 @@ public class ReadyFragment extends Fragment {
         btnUnready.setVisibility(GONE);
         btnReady.setVisibility(View.VISIBLE);
 
-        // TODO: 16-1-17 Send ready signal to backend
+        SocketActivity socketActivity = (SocketActivity) getActivity();
+
+        socketActivity.sendMessageThroughSocket("ready;false");
     }
 
     @Override

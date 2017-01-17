@@ -42,4 +42,6 @@
     <string name="button_send">Send!</string>
     <string name="cardpick_title">Pick your card!</string>
     <string name="cardpick_description">Click on a card to select it. When you\'re sure of your decision, hit send!</string>
+    <string name="wait2_title">Wait till next round...</string>
+    <string name="wait2_description">The host is now busy filling in information...</string>
 </resources>

@@ -6,6 +6,12 @@ package com.funcrate.funcrateplanningpoker;
  */
 
 public class Config {
-    public final static String BACKEND_IP = "192.168.1.36";
+    //    192.168.2.5:8080/host
+//    public final static String BACKEND_IP = "192.168.2.5";
+//    public final static String BACKEND_IP = "145.93.57.140";
+//    public final static String BACKEND_IP = "192.168.122.1";
+//    public final static String BACKEND_IP = "192.168.2.101";
+    public final static String BACKEND_IP = "192.168.2.5";
+//    public final static String BACKEND_IP = "";
     public final static int BACKEND_PORT = 8080;
 }

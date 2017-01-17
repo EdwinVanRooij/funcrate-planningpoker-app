@@ -1,27 +1,19 @@
 package com.funcrate.funcrateplanningpoker;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.ButterKnife;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketHandler;
 import org.parceler.Parcels;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.IOException;
 
-import static android.R.attr.logo;
-import static android.R.attr.port;
-import static android.R.attr.timePickerStyle;
 import static com.funcrate.funcrateplanningpoker.Config.BACKEND_IP;
 import static com.funcrate.funcrateplanningpoker.Config.BACKEND_PORT;
 import static com.funcrate.funcrateplanningpoker.Constants.KEY_URL;
@@ -29,8 +21,8 @@ import static com.funcrate.funcrateplanningpoker.Constants.KEY_URL;
 public class SocketActivity extends AppCompatActivity {
 
     private String url;
-
-    private WebSocketClient mWebSocketClient;
+    private static final String TAG = "SocketActivity";
+    private final WebSocketConnection mConnection = new WebSocketConnection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +36,35 @@ public class SocketActivity extends AppCompatActivity {
 
         setFragment(EnterNameFragment.class, false);
 
-
         connectWebSocket();
     }
 
     private void onMessageReceived(String s) {
         System.out.println(String.format("Received: %s", s));
+
+        Event e = Event.deserialize(s);
+
+        switch (e.getName()) {
+            case "gameStarted":
+                setFragment(WaitFragment.class, false);
+                break;
+
+            case "nextRound":
+                setFragment(CardPickFragment.class, false);
+                break;
+
+            case "allVoted":
+                setFragment(Wait2Fragment.class, false);
+                break;
+
+            default:
+                System.out.println("Could not determine name");
+        }
     }
 
     public void sendMessageThroughSocket(String string) {
         runOnUiThread(() -> {
-            // TODO: 16-1-17 uncomment
-//            mWebSocketClient.send(string);
+            mConnection.sendTextMessage(string);
         });
     }
 
@@ -64,48 +73,29 @@ public class SocketActivity extends AppCompatActivity {
      * This code points to other methods based on the messages received
      */
     private void connectWebSocket() {
+        String wsuri = String.format("ws://%s:%s/client", BACKEND_IP, BACKEND_PORT);
+
         try {
-            URI uri = new URI(String.format("ws://%s:%s/host", BACKEND_IP, BACKEND_PORT));
-            int times = 10;
+            mConnection.connect(wsuri, new WebSocketHandler() {
 
-            mWebSocketClient = new WebSocketClient(uri) {
                 @Override
-                public void onOpen(ServerHandshake serverHandshake) {
-                    for (int j = 0; j < times; j++) {
-                        Log.i("Websocket", "Opened");
-                    }
-                    System.out.println("Websocket opened");
-                    mWebSocketClient.send(String.format("gameId;\"%s\"", url));
+                public void onOpen() {
+                    Log.d(TAG, "Status: Connected to " + wsuri);
+
+                    sendMessageThroughSocket(String.format("gameId;\"%s\"", url));
                 }
 
                 @Override
-                public void onMessage(String s) {
-                    for (int j = 0; j < times; j++) {
-                        System.out.println("Received message");
-                    }
-                    onMessageReceived(s);
+                public void onTextMessage(String payload) {
+                    onMessageReceived(payload);
                 }
 
                 @Override
-                public void onClose(int i, String s, boolean b) {
-                    for (int j = 0; j < times; j++) {
-                        System.out.println("Socked closed");
-                    }
-                    Log.i("Websocket", "Closed " + s);
+                public void onClose(int code, String reason) {
+                    Log.d(TAG, String.format("Connection lost, reason: %s", reason));
                 }
-
-                @Override
-                public void onError(Exception e) {
-                    for (int i = 0; i < times; i++) {
-                        System.out.println("Error received on socket");
-                    }
-                    Log.i("Websocket", "Error " + e.getMessage());
-                }
-            };
-
-            mWebSocketClient.connect();
-
-        } catch (URISyntaxException e) {
+            });
+        } catch (de.tavendo.autobahn.WebSocketException e) {
             e.printStackTrace();
         }
     }

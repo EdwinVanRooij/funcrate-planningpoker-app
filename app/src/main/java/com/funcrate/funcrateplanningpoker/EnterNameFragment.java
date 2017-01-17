@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static com.funcrate.funcrateplanningpoker.R.id.etUsername;
 import static java.security.AccessController.getContext;
 
 
@@ -55,20 +54,10 @@ public class EnterNameFragment extends Fragment {
         Toast.makeText(getContext(), String.format("Username is: %s", username), Toast.LENGTH_SHORT).show();
 
         SocketActivity activity = (SocketActivity) getActivity();
+
         activity.sendMessageThroughSocket(String.format("join;\"%s\"", username));
 
         activity.setFragment(ReadyFragment.class, false);
-
-        // TODO: 16-1-17 this is just for the simulation effect, remove this in production
-        new Thread(() -> {
-            try {
-                Thread.sleep(4000);
-
-                activity.setFragment(WaitFragment.class, false);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
 }

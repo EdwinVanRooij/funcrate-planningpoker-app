@@ -13,11 +13,11 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WaitFragment extends Fragment {
+public class Wait2Fragment extends Fragment {
 
     private Unbinder unbinder;
 
-    public WaitFragment() {
+    public Wait2Fragment() {
         // Required empty public constructor
     }
 
