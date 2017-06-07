@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
         setFragment(MainFragment.class);
     }
 
